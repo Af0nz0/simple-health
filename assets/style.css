@@ -1,0 +1,28 @@
+.has-background-success  {
+    background-color: chartreuse;
+}
+
+.navbar-items-bg {
+    background-color: chartreuse;
+}
+
+.center {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+        text-align: center;
+      }
+
+.box {
+    border: 3px solid chartreuse;
+    display: flex;
+    flex-direction: row;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.container-box {
+    border: 3px solid chartreuse;
+}
