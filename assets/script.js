@@ -24,9 +24,10 @@ async function getMealPlan(chosenDiet) {
     console.log(data);
 
     var resultElement = document.createElement("div");
-          console.log("Total Results:", data.totalResults);
+      console.log("Total Results:", data.totalResults);
+      console.log("hey");
       console.log("First Recipe Title:", data.results[0].title);
-      resultElement.textContent = "Meal Plan Result: " + data.totalResults; // Replace with your actual result data
+      resultElement.textContent = "Meal Plan Result: " + data.results[0].title; // Replace with your actual result data
       resultsContainer.appendChild(resultElement);
 
 
@@ -50,8 +51,10 @@ async function getWorkoutPlan(difficultyLevel) {
     var data2 = await resp.json();
     console.log(data2);
 
+    console.log("Name of exercise:", data2[0].name);
+
     var resultElement = document.createElement("div");
-    resultElement.textContent = "Workout Plan Result: " + json.stringify(data2); // Replace with your actual result data
+    resultElement.textContent = "Workout Plan Result: " + data2[0].name; // Replace with your actual result data
     resultsContainer.appendChild(resultElement);
 }
 
