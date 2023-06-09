@@ -1,36 +1,181 @@
- const TestAPIURL = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?query=pasta&cuisine=italian&excludeCuisine=greek&diet=vegetarian&intolerances=gluten&equipment=pan&includeIngredients=tomato%2Ccheese&excludeIngredients=eggs&type=main%20course&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&titleMatch=Crock%20Pot&maxReadyTime=20&ignorePantry=true&sort=calories&sortDirection=asc&minCarbs=10&maxCarbs=100&minProtein=10&maxProtein=100&minCalories=50&maxCalories=800&minFat=10&maxFat=100&minAlcohol=0&maxAlcohol=100&minCaffeine=0&maxCaffeine=100&minCopper=0&maxCopper=100&minCalcium=0&maxCalcium=100&minCholine=0&maxCholine=100&minCholesterol=0&maxCholesterol=100&minFluoride=0&maxFluoride=100&minSaturatedFat=0&maxSaturatedFat=100&minVitaminA=0&maxVitaminA=100&minVitaminC=0&maxVitaminC=100&minVitaminD=0&maxVitaminD=100&minVitaminE=0&maxVitaminE=100&minVitaminK=0&maxVitaminK=100&minVitaminB1=0&maxVitaminB1=100&minVitaminB2=0&maxVitaminB2=100&minVitaminB5=0&maxVitaminB5=100&minVitaminB3=0&maxVitaminB3=100&minVitaminB6=0&maxVitaminB6=100&minVitaminB12=0&maxVitaminB12=100&minFiber=0&maxFiber=100&minFolate=0&maxFolate=100&minFolicAcid=0&maxFolicAcid=100&minIodine=0&maxIodine=100&minIron=0&maxIron=100&minMagnesium=0&maxMagnesium=100&minManganese=0&maxManganese=100&minPhosphorus=0&maxPhosphorus=100&minPotassium=0&maxPotassium=100&minSelenium=0&maxSelenium=100&minSodium=0&maxSodium=100&minSugar=0&maxSugar=100&minZinc=0&maxZinc=100&offset=0&number=10&limitLicense=false&ranking=2';
+ 
+var dietDropdownItems = document.querySelectorAll(
+  "#dropdown-menu .dropdown-item"
+);
+var fitnessLevelDropdownItems = document.querySelectorAll(
+  "#dropdown-menu-fitness .dropdown-item"
+);
+var submitBtnEl = document.getElementById("submitButton");
+var dietSelectEl = document.querySelector("#dietDropdown");
+var fitnessLevelSelectEl = document.querySelector("#fitnessDropdown");
+var resultsContainer = document.getElementById("resultsContainer");
+var savedMealPlansLink = document.getElementById("savedMealPlansLink");
+var savedWorkoutsLink = document.getElementById("savedWorkoutsLink");
+var aboutUsLink = document.getElementById("aboutUsLink");
 
-const testFitnessUrl = 'https://api.api-ninjas.com/v1/exercises?muscle=biceps' 
+function redirectToAboutUsPage(event) {
+  event.preventDefault();
+  // Redirect to the about us page
+  window.location.href = "about-us.html";
+}
+// api key for spoonacular
+const apiKeySpoon = "6183a54844d84957afa9d1512dd3fa34";
+// api key for exercise ninja
+const apiKeyExercise = "5448159d70mshd5840af61bc30f4p179a31jsn152d9ac45d5b";
+// Make the API request
 
-const url = 'https://workout-planner1.p.rapidapi.com/customized?time=30&equipment=dumbbells&muscle=biceps&fitness_level=beginner&fitness_goals=strength';
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'a9e31b0e52msha338ade7ed218ffp1fcb3cjsnfc273ca7a196',
-		'X-RapidAPI-Host': 'workout-planner1.p.rapidapi.com'
-	}
-};
-
-var muscle = "biceps";
-  $.ajax({
-    method: "GET",
-    url: "https://api.api-ninjas.com/v1/exercises?muscle=" + muscle,
-    headers: { "X-Api-Key": "5ZB3R/cWYpaHJf3BddQ/uQ==nPVFePSMZIbEyTyV" },
-    contentType: "application/json",
-    success: function (result) {
-      console.log(result);
-    },
-    error: function ajaxError(jqXHR) {
-      console.error("Error: ", jqXHR.responseText);
-    },
-  });
-fetch (url)
-.then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
+async function getMealPlan(chosenDiet) {
+    var res = await fetch(
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKeySpoon}&query=${chosenDiet}`
+    );
+    var data = await res.json();
     console.log(data);
+    var index = Math.floor(Math.random()*data.results.length);
+
+
+    var resultElement = document.createElement("div");
+    console.log("Total Results:", data.totalResults);
+    //console.log("First Recipe Title:", data.results[index].title);
+    resultElement.textContent = "Meal Plan Result: " + data.results[index].title; 
+    resultsContainer.appendChild(resultElement);
+    
+    var localData = localStorage.getItem("Meal Name");
+    var savedMeals = [];
+
+    if (localData) {
+      try {
+        savedMeals = JSON.parse(localData);
+
+        if (!Array.isArray(savedMeals)) {
+          savedMeals = [savedMeals];
+        }
+      } catch (error) {
+        console.error("Error parsing", error);
+      }
+    }
+
+    var newItem = data.results[index].title;
+    savedMeals.push(newItem);
+
+    localStorage.setItem("Meal Name", JSON.stringify(savedMeals));
+
+}
+
+
+async function getWorkoutPlan(difficultyLevel) {
+  var resp = await fetch(
+      `https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?difficulty=${difficultyLevel}`,
+    {
+      method: "GET",
+      headers: {
+        "X-RapidApi-Key": apiKeyExercise, // Replace with your actual API key
+        "X-RapidAPI-Host": "exercises-by-api-ninjas.p.rapidapi.com",
+      },
+    })
+    var data2 = await resp.json();
+    console.log(data2);
+    var index = Math.floor(Math.random()*data2.length);
+
+    var resultElement = document.createElement("div");
+    resultElement.textContent = "Workout Plan Result: " + data2[index].name; // Replace with your actual result data
+    resultsContainer.appendChild(resultElement);
+    // save into local storage
+    var localData = localStorage.getItem("Exercise Name");
+    var savedWorkouts =[];
+
+    if (localData) {
+      try {
+        savedWorkouts = JSON.parse(localData);
+      
+      if (!Array.isArray(savedWorkouts)) {
+        savedWorkouts = [savedWorkouts];
+      }
+    } catch(error) {
+      console.error('Error', error);
+    }
+    }
+
+      var newItem = data2[index].name;
+      savedWorkouts.unshift(newItem); // Add the new workout plan at the beginning of the array
+
+      if (savedWorkouts.length > 10) {
+        savedWorkouts = savedWorkouts.slice(0, 10); // Keep only the latest 10 workout plans
+      }
+
+      localStorage.setItem("Exercise Name", JSON.stringify(savedWorkouts));
+    // var newItem = data2[index].name;
+    // savedWorkouts.push(newItem);
+
+    // localStorage.setItem("Exercise Name", JSON.stringify(savedWorkouts));
+}
+
+
+dietDropdownItems.forEach(function (item) {
+  item.addEventListener("click", function (event) {
+    var element = event.target;
+    var selectedDiet = event.target.textContent;
+    dietDropdownItems.forEach(function (item) {
+      item.classList.remove("is-active");
+    });
+    element.classList.add("is-active");
+    console.log("Selected Diet:", selectedDiet);
+    // Use the selected diet value as needed
   });
+});
 
 
+function displayAllMealPlans() {
+
+  const mealPlans = localStorage.getItem("Meal Name");
+  // Split the meal plans into separate entries
+  const mealPlanEntries = mealPlans ? mealPlans.split(",") : [];
+  // Select the latest 10 meal plans
+  const latestMealPlans = mealPlanEntries.slice(-10);
+  // Clear the MealPlansContainer element
+  const mealPlansContainer = document.getElementById("mealPlansContainer");
+  mealPlansContainer.innerHTML = "";
+
+  // Display the latest meal plans
+  latestMealPlans.forEach(function (mealPlan, index) {
+    const mealPlanElement = document.createElement("div");
+    mealPlanElement.innerHTML = `Meal Plan ${index + 1}: ${mealPlan}`;
+    mealPlansContainer.appendChild(mealPlanElement);
+
+    if (index === latestMealPlans.length - 1) {
+      mealPlanElement.innerHTML = mealPlanElement.innerHTML.replace(/.$/, "");
+    }
+  });
+}
+
+function displayAllWorkouts() {
+  var workouts = localStorage.getItem("Exercise Name");
+  var workoutParsed = workouts ? JSON.parse(workouts) : [];
+  console.log(workoutParsed);
+  // Split the workout plans into separate entries
+  // Select the latest 10 workout plans
+  var latestWorkout = workoutParsed.slice(-10);
+  // Clear the WorkoutContainer element
+  const workoutContainer = document.getElementById("workoutContainer");
+  workoutContainer.innerHTML = "";
+
+  // Display the latest workout plans
+    const workoutElement = document.createElement("div");
+    workoutElement.innerHTML = `Workout : ${latestWorkout}`;
+    workoutContainer.appendChild(workoutElement);
+}
+
+submitBtnEl.addEventListener('click', function() {
+  var selectedDiet = dietSelectEl.value;
+  var selectedFitnessLevel = fitnessLevelSelectEl.value;
+
+  console.log("Selected Diet:", selectedDiet);
+  console.log("Selected Fitness Level", selectedFitnessLevel);
+
+  getMealPlan(selectedDiet);
+  getWorkoutPlan(selectedFitnessLevel);
+});
+
+savedMealPlansLink.addEventListener("click", displayAllMealPlans);
+savedWorkoutsLink.addEventListener("click", displayAllWorkouts);
+aboutUsLink.addEventListener("click", redirectToAboutUsPage);
 

@@ -14,108 +14,99 @@
     <h1 class="title has-background-success has-text-left is-underlined">Simple-Health
         <div class="navbar-end has-background-success">
             <!-- navbar items -->
-            <a class="navbar-item is-size-6">
+            <a class="navbar-item is-size-6" id="savedMealPlansLink">
                 Saved Meal Plans
             </a>
-            <a class="navbar-item is-size-6">
+            <a class="navbar-item is-size-6" id="savedWorkoutsLink">
                 Saved Workouts
             </a>
-            <a class="navbar-item is-size-6">
-                About Me
+            <a class="navbar-item is-size-6" href="#" id="aboutUsLink">
+                About Us
             </a>
         </div>
         </div>
     </h1>
 
-    <div class="center is-size-3">
+<div class="center is-size-3">
         <p class="mb-6">Tell us what your goals are </p>
         <div class="box center">
             <p>I have a diet of: </p>
-            <div class="dropdown is-hoverable">
-                <div class="dropdown-trigger">
-                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>Dropdown button</span>
-                        <span class="icon is-small">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                    </button>
-                </div>
-                <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                    <div class="dropdown-content">
-                        <a href="#" class="dropdown-item">
+                <div class="control">
+                    <div class="select">
+                        <select id="dietDropdown">
+                        <option value ="Gluten Free" class="dropdown-item">
                             <!-- Add Types of Diets within dropdown items -->
                             Gluten Free
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        </option>
+                        <option value="Ketogenic" class="dropdown-item">
                             Ketogenic
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        </option>
+                        <option value="Vegetarian" class="dropdown-item">
                             Vegetarian
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        </option>
+                        <option value="Lacto-Vegetarian" class="dropdown-item">
                             Lacto-Vegetarian
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        </option>
+                        <option value="Ovo-Vegetarian" class="dropdown-item">
                             Ovo-Vegetarian
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        </option>
+                        <option value="Vegan" class="dropdown-item">
                             Vegan
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        </option>
+                        <option value="Pescatarian" class="dropdown-item">
                             Pescatarian
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        </option>
+                        <option value="Paleo" class="dropdown-item">
                             Paleo
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        </option>
+                        <option value="Primal" class="dropdown-item">
                             Primal
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        </option>
+                        <option value="Low-FODMAP" class="dropdown-item">
                             Low-FODMAP
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        </option>
+                        <option value="WHOLE30" class="dropdown-item">
                             WHOLE30
-                        </a>
+                        </option>
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="box center">
-            <p>My fitness level is: </p>
-            <div class="dropdown is-hoverable">
-                <div class="dropdown-trigger">
-                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>Dropdown button</span>
-                        <span class="icon is-small">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                    </button>
-                </div>
-                <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                    <div class="dropdown-content">
-                        <a href="#" class="dropdown-item">
-                            Beginner
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            Intermediate
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            Expert
-                        </a>
-                    </div>
+        <div class="center is-size-3">
+            <div class="box center">
+                <p>My fitness level is: </p>
+                <div class="control">
+                    <div class="select">
+                        <select id="fitnessDropdown">
+                            <option value="Beginner" class="dropdown-item" >
+                                Beginner
+                            </option>
+                            <option value="Intermediate" class="dropdown-item">
+                                Intermediate
+                            </option>
+                            <option value="Expert" class="dropdown-item">
+                                Expert
+                            </option>
+                         </select>
+                    </div>  
                 </div>
             </div>
-        </div>
-
-        <h3 class="center">
-            Sumbit your information for your own customized diet and exercise routine!
+         </div>
+        
+        <h3 class="center is-size-3">
+            Submit your information for your own customized diet and exercise routine!
         </h3>
         <h4 class="center">
-            <button class="button has-background-success">Submit</button>
+            <button class="button has-background-success" id="submitButton">Submit</button>
         </h4>
-        <h5 class="center">
+        <h5 class="box center is-size-3 has-text-centered">
             Your Results:
+        <div id="resultsContainer"></div>
+        <div id="mealPlansContainer"></div>
+        <div id="workoutContainer"></div>
         </h5>
+</div>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
