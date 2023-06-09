@@ -26,26 +26,16 @@
         </div>
         </div>
     </h1>
-
     <div class="center is-size-3">
         <p class="mb-6">Tell us what your goals are </p>
         <div class="box center">
             <p>I have a diet of: </p>
-            <div class="dropdown is-hoverable">
-                <div class="dropdown-trigger">
-                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>Dropdown button</span>
-                        <span class="icon is-small">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                    </button>
-                </div>
-                <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                    <div class="dropdown-content">
-                        <select id="dietDropdown">
-                        <option value ="Gluten Free" class="dropdown-item">
+            <div class="control">
+                <div class="select">
+                    <select id="dietDropdown">
+                        <option value="Gluten Free" class="dropdown-item">
                             <!-- Add Types of Diets within dropdown items -->
-                            
+                            Gluten Free
                         </option>
                         <option value="Ketogenic" class="dropdown-item">
                             Ketogenic
@@ -77,52 +67,44 @@
                         <option value="WHOLE30" class="dropdown-item">
                             WHOLE30
                         </option>
-                        </select>
-                    </div>
+                    </select>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="center is-size-3">
         <div class="box center">
             <p>My fitness level is: </p>
-            <div class="dropdown is-hoverable">
-                <div class="dropdown-trigger">
-                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>Dropdown button</span>
-                        <span class="icon is-small">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                    </button>
-                </div>
-                <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                    <div class="dropdown-content">
-                        <select id="fitnessDropdown">
-                            <option value="Beginner" class="dropdown-item" >
-                                Beginner
-                            </option>
-                            <option value="Intermediate" class="dropdown-item">
-                                Intermediate
-                            </option>
-                            <option value="Expert" class="dropdown-item">
-                                Expert
-                            </option>
+            <div class="control">
+                <div class="select">
+                    <select id="fitnessDropdown">
+                        <option value="Beginner" class="dropdown-item">
+                            Beginner
+                        </option>
+                        <option value="Intermediate" class="dropdown-item">
+                            Intermediate
+                        </option>
+                        <option value="Expert" class="dropdown-item">
+                            Expert
+                        </option>
                     </select>
-                    </div>
                 </div>
             </div>
         </div>
-        <h3 class="center">
-            Submit your information for your own customized diet and exercise routine!
-        </h3>
-        <h4 class="center">
-            <button class="button has-background-success" id="submitButton">Submit</button>
-        </h4>
-        <h5 class="center">
-            Your Results:
-        </h5>
+    </div>
+    <h3 class="center is-size-3">
+        Submit your information for your own customized diet and exercise routine!
+    </h3>
+    <h4 class="center">
+        <button class="button has-background-success" id="submitButton">Submit</button>
+    </h4>
+    <h5 class="box center is-size-3 has-text-centered">
+        Your Results:
         <div id="resultsContainer"></div>
         <div id="mealPlansContainer"></div>
         <div id="workoutContainer"></div>
-
+    </h5>
+    </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="assets/script.js"></script>
